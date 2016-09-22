@@ -53,7 +53,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class CameraActivity extends Activity implements SensorEventListener {
 
     private static final String TAG = "CameraActivity";
@@ -240,6 +239,7 @@ public class CameraActivity extends Activity implements SensorEventListener {
 
         captureButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Log.d(TAG, 'Capture Button pressed');
                 if (pressed || camera == null)
                     return;
                 attemptToTakePicture();
@@ -262,21 +262,20 @@ public class CameraActivity extends Activity implements SensorEventListener {
     }
 
     private void attemptToTakePicture() {
+        Log.d(TAG, 'Camera attemptToTakePicture');
         Parameters p = camera.getParameters();
         android.hardware.Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
         android.hardware.Camera.getCameraInfo(cam, info);
-        Log.d(TAG, "Camera rotation detected to be: " + info.orientation);
         int toRotate = info.orientation + degrees - 90;
-        Log.d(TAG, "To rotate before checking 0/360 bounds: " + toRotate);
         if (toRotate < 0 || toRotate > 360) {
             toRotate = (toRotate < 0) ? toRotate + 360 : toRotate - 360;
         }
-        Log.d(TAG, "To rotate, after applying 0/360 bound rotation: " + toRotate);
         p.setRotation(toRotate);
         camera.setParameters(p);
         pressed = true;
         // Auto-focus first, catching rare autofocus error
         try {
+            Log.d(TAG, 'Auto-focus attempt')
             camera.autoFocus(new AutoFocusCallback() {
                 public void onAutoFocus(boolean success, Camera camera) {
                     // Catch take picture error
