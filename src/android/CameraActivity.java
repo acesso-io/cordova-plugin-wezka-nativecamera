@@ -84,7 +84,7 @@ public class CameraActivity extends Activity implements SensorEventListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "Camera Activity Started!");
+        Log.d(TAG, "Camera Activity Started 1!");
         super.onCreate(savedInstanceState);
 
         //setContentView(R.layout.activity_main);
@@ -239,7 +239,7 @@ public class CameraActivity extends Activity implements SensorEventListener {
 
         captureButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(TAG, 'Capture Button pressed');
+                Log.d(TAG, "Capture Button pressed");
                 if (pressed || camera == null)
                     return;
                 attemptToTakePicture();
@@ -262,7 +262,7 @@ public class CameraActivity extends Activity implements SensorEventListener {
     }
 
     private void attemptToTakePicture() {
-        Log.d(TAG, 'Camera attemptToTakePicture');
+        Log.d(TAG, "Camera attemptToTakePicture");
         Parameters p = camera.getParameters();
         android.hardware.Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
         android.hardware.Camera.getCameraInfo(cam, info);
@@ -275,7 +275,7 @@ public class CameraActivity extends Activity implements SensorEventListener {
         pressed = true;
         // Auto-focus first, catching rare autofocus error
         try {
-            Log.d(TAG, 'Auto-focus attempt')
+            Log.d(TAG, "Auto-focus attempt");
             camera.autoFocus(new AutoFocusCallback() {
                 public void onAutoFocus(boolean success, Camera camera) {
                     // Catch take picture error
@@ -400,7 +400,7 @@ public class CameraActivity extends Activity implements SensorEventListener {
                 camera.setPreviewDisplay(previewHolder);
             }
             catch (Throwable t) {
-                Log.e("PreviewDemo-surfaceCallback",
+                Log.e("Preview-surfaceCallback",
                         "Exception in setPreviewDisplay()", t);
             }
 
